@@ -9,7 +9,7 @@ Window {
 
     Loader {
         id: test_qml
-        source: "04/grid_exam_1.qml"
+        source: "04/xml_exam.qml"
         onLoaded: {
             test2_window.width = test_qml.width
             test2_window.height = test_qml.height
