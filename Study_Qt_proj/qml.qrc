@@ -1,5 +1,84 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>02/js/jslib.js</file>
+        <file>02/ExComponent.qml</file>
+        <file>02/keyreader.qml</file>
+        <file>02/LineEdit.qml</file>
+        <file>02/menu1.qml</file>
+        <file>02/menu2.qml</file>
+        <file>02/myitem.qml</file>
+        <file>02/NewCheckBox.qml</file>
+        <file>02/NewLineEdit.qml</file>
+        <file>02/page1.qml</file>
+        <file>02/T_AniImg.qml</file>
+        <file>02/T_application.qml</file>
+        <file>02/T_bouncing-ball1.qml</file>
+        <file>02/T_bouncing-ball2.qml</file>
+        <file>02/T_bouncing-ball3.qml</file>
+        <file>02/T_ContainsMouse.qml</file>
+        <file>02/T_Drag.qml</file>
+        <file>02/T_dynamic_component.qml</file>
+        <file>02/T_dynamic_main.qml</file>
+        <file>02/T_Flickable.qml</file>
+        <file>02/T_js_main.qml</file>
+        <file>02/T_key_main.qml</file>
+        <file>02/T_KeyNavigation.qml</file>
+        <file>02/T_Keys.qml</file>
+        <file>02/T_main.qml</file>
+        <file>02/T_Module_checked_main.qml</file>
+        <file>02/T_Module_main.qml</file>
+        <file>02/T_Module_new_main.qml</file>
+        <file>02/T_MouseArea.qml</file>
+        <file>02/T_rowlayout.qml</file>
+        <file>02/T_SignalHandler_exam1.qml</file>
+        <file>02/T_SignalHandler_exam2.qml</file>
+        <file>02/T_SignalHandler_exam3.qml</file>
+        <file>02/T_SignalHandler_exam4.qml</file>
+        <file>02/T_square.qml</file>
+        <file>02/T_state-when.qml</file>
+        <file>02/T_state.qml</file>
+        <file>02/T_status.qml</file>
+        <file>02/T_systempalette.qml</file>
+        <file>02/T_TextInput.qml</file>
+        <file>02/T_transition-rotate.qml</file>
+        <file>02/T_transition.qml</file>
+        <file>02/T_value_change.qml</file>
+        <file>04/file.xml</file>
+        <file>04/grid_exam_1.qml</file>
+        <file>04/grid_exam_ani.qml</file>
+        <file>04/item.xml</file>
+        <file>04/list-view-header-footer.qml</file>
+        <file>04/listmodel_exam_1.qml</file>
+        <file>04/listmodel_exam_2.qml</file>
+        <file>04/rss.xml</file>
+        <file>04/xml_exam.qml</file>
+        <file>images/cup structure/cup elements/coffee_cup_back.png</file>
+        <file>images/cup structure/cup elements/coffee_cup_coverplate.png</file>
+        <file>images/cup structure/cup elements/coffee_cup_front.png</file>
+        <file>images/cup structure/liquids/liquid_coffee.png</file>
+        <file>images/cup structure/liquids/liquid_foam.png</file>
+        <file>images/cup structure/liquids/liquid_milk.png</file>
+        <file>images/cup structure/coffee_cup_large.png</file>
+        <file>images/cup structure/coffee_cup_outline.png</file>
+        <file>images/icons/coffees/Americano.png</file>
+        <file>images/icons/coffees/cappucino.png</file>
+        <file>images/icons/coffees/Espresso.png</file>
+        <file>images/icons/coffees/Latte.png</file>
+        <file>images/icons/coffees/Macchiato.png</file>
+        <file>images/icons/contents/coffee.png</file>
+        <file>images/icons/contents/milk.png</file>
+        <file>images/icons/contents/sugar.png</file>
+        <file>images/ui controls/buttons/back/white.png</file>
+        <file>images/ui controls/buttons/go/white.png</file>
+        <file>images/ui controls/line.png</file>
+        <file>images/101.JPG</file>
+        <file>images/102.JPG</file>
+        <file>images/103.JPG</file>
+        <file>images/104.JPG</file>
+        <file>images/ani.gif</file>
+        <file>images/bg.png</file>
+        <file>images/cat.png</file>
+        <file>images/T_MouseArea.qml</file>
     </qresource>
 </RCC>
