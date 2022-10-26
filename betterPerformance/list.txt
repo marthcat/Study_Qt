@@ -1,0 +1,76 @@
+
+
+성능 향상을 위한 코딩
+1. JavaScript Code
+  ** Cpp에서 Q_PROPERTY를 사용해 선언한 속성이 QML로 넘어올 때​ 속성 형식 변환으로 인한 비용 최소화
+    - 가장 일치하는 속성 형식을 사용한다. (변환을 최소화)
+  ** 속성 값을 탐색하는 비용 // JsCode_ResolvingProperty.qml
+    - 중간 변수를 사용한다.
+  ** Property Binding 에서 생기는 비용 // JsCode_ResolvingProperty.qml
+    - 중간 변수를 사용해 Property Binding을 최소한으로 사용한다.
+  ** Sequence 팁
+    - 일부를 제외하면 느린 시퀸스 자료형을 보다 빠르게 사용하기 위한 구현방법
+      > 참조 시퀸스(시퀀스가 QObject의 Q_PROPERTY인 경우), 복사 시퀸스(시퀀스가 QObject의 Q_INVOKABLE 함수에서 반환되는 경우)
+      - 참조 시퀸스의 느린 쓰기 기능을 최소화
+        // JsCode_SequinceTip1.qml
+      - 특정 시퀸스에 바인딩이 많은 경우, 알람 체계에 의해 시퀸스 호출시마다 바인딩에 영향이 간다.
+        // JsCode_SequinceTip2_~.qml
+  ** ValueType 팁
+    - Sequence 와 동일한 QObject 속성을 가지며, 알람 체계 또한 동일하다.
+  ** 기타 JavaScript Object
+    - 가능하면 eval()을 사용하지 말 것.
+    - Object의 Property를 삭제하지 말 것.
+
+2. Common Interface Elements  (공통 인터페이스 요소)
+  ** Text Elements
+    [Text.StyledText : 부분 글꼴 변환이 대부분 가능한 HTML 3.2의 기본 Rich Text]
+    - 가능한 경우 "Text.StyledText" 대신 "Text.PlainText"을 사용한다.
+    - "Text.RichText" 기능은 지양한다.
+    - 위 설정을 위해 "Text.AutoText" 기능이 어떻게 동작할지 확인한다.
+  ** Images
+    - Asynchronous : 대용량 이미지인 경우 Image의 Asynchronous 속성을 true로 하여 UX에 부정적인 영향을 주지 않는다.
+    - sourceSize : 보다 작은 공간에 맞춰 Image를 로드하는 속성 값을 지정한다. 값 변경 시 재 로딩.
+    - 미리 구현된 이미지 리소스를 사용한다. (런타임 중 이미지 변환 작업을 되도록 수행하지 않도록 한다.)
+    - image.smooth : 필요한 경우만 활성화 한다.
+    - 같은 공간에 반복적인 드로잉은 피한다. (ex. Rectangle 보다 Item을 우선적으로 사용)
+  ** 앵커가 있는 위치 요소(Position Elements With Anchors)
+    - Anchor 를 사용 한 x, y, Width, Height 속성 바인딩은 유연성이 크지만 상대적으로 느리다.
+      // PositionSetting_1_RelativePos.qml
+    - 단 레이아웃이 동적이지 않는다면 x, y, width, height 속성을 정적 값으로 초기화를 하는것이 효과적이다.
+      // PositionSetting_2_NotDynamic.qml
+    - 부모의 0,0 좌표를 Offset으로 한다면 Anchors는 사용하지 말아야 한다.
+
+3. Visual Effects (시각 효과)
+  ** Animation
+    - 경우에 따라서는 애니메이션 동작 전에 바인딩을 비활성화 하고 애니매이션이 완료 된 후 활성화 시키는것이 좋다.
+    - Animation 실행 중에 JavaScript를 실행하지 않는다. (예를들어 x 속성 애니메이션의 각 프레임에 대해 복잡한 JavaScript 적용하면 안된다.)
+  ** Particles (파티클: 입자)
+    - "Qt Quick Particles" 모듈 기능은 프로그램을 사용할 대상의 플랫폼(CPU 성능 등)을 고려하여 구현해야한다. 60FPS 가 안나올 경우 고려...
+    - 이 시스템을 사용하지 않는다면 비활성화 한다 . "Particle System Performance Guide" 참조
+
+4. Controlling Element Lifetime (요소 수명 제어)​
+  ** Lazy Initialization  (느린 초기화)
+    > 컴포넌트 로딩과 초기화로 인해 프레임이 날뛰는것을 막기위해 "QML Engine"이 있으나. 그보다 일을 필요할 때 까지 미루는것과 하지 않아도 될 일은 피하는 것이 더 좋은 방법이다.
+    > 이를 위한 로더 사용 및 동적 작성이다.
+
+    - Using Loader (로더 사용)
+      - Loader의 "active" 속성을 사용하여 필요할 때 까지 초기화를 미룬다.
+      - 오버로드 된 버전의 "setSource()" 함수를 사용하여 초기 속성값을 제공 받는다.
+      - Loader의 "asynchronous" 속성을 true 로 하면 컴포넌트가 인스턴스화되는 동안의 유동성이 개선 될 수도 있습니다.
+
+  ** Destroy Unused Elements (사용되지 않는 요소 삭제)
+    - 개발자는 런타임 중 "Qt.createComponent()" 함수를 사용해 컴포넌트를 동적으로 만든 다음 "createObject()" 를 호출해 인스턴스 화 할 수 있다.
+      단 이 오브젝트는 호출 시의 ownership semantics 지정에 따라 개발자가 수동으로 삭제해야 할 수 있다. ( Dynamic QML Object Creation from JavaScript 검색 참조)
+
+5. Rendering (렌더링)
+**
+
+
+6. Memory Allocation And Collection (메모리 할당 및 수집)​​
+
+7. 프로파일링 도구를 사용하여 문제확인
+
+## 참조 ##
+https://doc.qt.io/qt-5/qtquick-performance.html
+- https://ebeenarticle.tistory.com/entry/Qt-QML-Performance-Considerations-And-Suggestions
+- https://makersweb.net/qt/23987

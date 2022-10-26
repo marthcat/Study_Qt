@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>JsCode_ResolvingProperty.qml</file>
+        <file>JsCode_PropertyBinding.qml</file>
+        <file>__JsCode_SequinceTip1.qml</file>
+        <file>__JsCode_SequinceTip2_bad.qml</file>
+        <file>__JsCode_SequinceTip2_good.qml</file>
+        <file>PositionSetting_1_RelativePos.qml</file>
+        <file>PositionSetting_2_NotDynamic.qml</file>
+    </qresource>
+</RCC>
