@@ -63,10 +63,52 @@
       단 이 오브젝트는 호출 시의 ownership semantics 지정에 따라 개발자가 수동으로 삭제해야 할 수 있다. ( Dynamic QML Object Creation from JavaScript 검색 참조)
 
 5. Rendering (렌더링)
-**
+> 렌더링 성능을 저해하는 요소
+  ** Clipping
+    - 필요할 때만 활성화 시킬 것
+    - 활성화 했을 경우 자신뿐만 아니라 자식의 Painting까지 포함하여 직사각형으로 Clip한다.
+      이것은 렌더러가 그리는 순서를 정할 수 없게 되며, 최선의 scene graph traversal 을 사용 할 수 없다.
 
+  ** Over-drawing and Invisible Elements
+    - 다른 요소에 의해 완전하게 덮여서 보이지않는 요소는 "visible" 속성을 false로 변경하는것이 좋다.
+    - 마찬가지로 보이지는 않지만 시작 시 초기화 시간이 (많이) 필요한 요소들은 "visible" 속성을 false 한 상태로 초기화 작업을 진행하여 괜히 Drawing 하는 상황은 피한다.
+      (예 : 선택되지 않은 탭의 페이지)
 
-6. Memory Allocation And Collection (메모리 할당 및 수집)​​
+  ** Translucent vs Opaque (반투명 vs 불투명)
+    - 일반적으로 Opaque 상태가 더 빠르게 그려진다. (Translucent는 블렌딩이 필요하고 또한 렌더러는 Opaque 컨텐츠의 잠재적인 최적화를 더 잘 처리하기 때문)
+    - 이미지에 하나의 반투명 픽셀이 있는 경우 다른 불투명 픽셀을 모두 반투명으로 처리한다. ( "BorderImage" 설정 true 또한 마찬가지다.)
+
+  ** Shaders
+    - "ShaderEffect" 타입을 사용하면 "GLSL" 코드를 Qt Quick 앱에 적은 오버헤드를 발생 시키면서 인라인으로 배치할 수 있지만
+      실제 프로그램에서 렌더링된 모든 픽셀에 셰이더가 적용 된다는것을 알아야 한다.
+      로우엔드 하드웨어 배포시에는 주의할 것.
+      - GLSL로 작성된 셰이더는 복잡한 변환과 시각적 효과를 작성할 수 있지만, 신중하게 사용해야 한다.
+      - ShaderEffectSource를 사용하면 scene을 그리기 전에 FBO로 미리 렌더링합니다. 이 extra overhead 는 많은 비용이 들 수 있다.
+
+6. Memory Allocation And Collection (메모리 할당 및 수집)
+> QML로 작성된 응용 프로그램은 C ++ 힙과 자동 관리 JavaScript 힙의 메모리를 사용한다.
+> 애플리케이션 개발자는 성능을 극대화하기 위해 각각의 미묘함을 인식해야 한다.
+  ** Tips For QML Application Developers (QML 응용 프로그램 개발자를 위한 팁)
+    - Instantiate and initialize components lazily (컴포넌트의 인스턴트 화 및 초기화를 여유롭게 한다.)
+    - Destroy unused objects (사용하지 않는 객체는 파괴한다)
+    - Don't manually invoke the garbage collector (가비지 수집기를 수동으로 호출하지 않는다)
+    - Avoid complex bindings (복잡한 바인딩은 피한다)
+    - Avoid defining multiple identical implicit types (똑같은 암시적 타입을 여러번 정의하지 않는다)
+    - Reuse existing components (기존 컴포넌트를 재사용한다)
+    - Use singleton types instead of pragma library scripts (pragma library script 대신에 싱글톤 타입 사용)
+  ** Memory Allocation in a QML Application
+    - QML 애플리케이션의 메모리 사용은 C ++ 힙 사용과 JavaScript 힙 사용의 두 부분으로 나눌 수 있다
+      - C ++ 힙 :
+        > QML 엔진의 고정 및 피할 수 없는 오버헤드(구현 데이터 구조, 컨텍스트 정보 등)
+        > "per-component" 컴파일된 데이터 및 타입 정보,
+          포함된 "per-type" 속성 메타데이터,
+          응용 프로그램에서 로드하는 모듈 및 구성 요소에 따라 "QML 엔진"에 의해 생성된 것
+        > 응용 프로그램이 인스턴스화하는 컴포넌트 따라 개체당 C++ 데이터(속성 값 포함)와 요소당 메타 개체 계층
+
+        QML 수입(라이브러리)에 의해 특별히 할당된 모든 데이터.
+
+  ** In-Depth Memory Allocation Considerations
+
 
 7. 프로파일링 도구를 사용하여 문제확인
 
