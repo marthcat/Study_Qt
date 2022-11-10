@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>SampleMainView.qml</file>
+        <file>model/_Menu_model.qml</file>
+        <file>model/Item1_model.qml</file>
+        <file>delegate/Item1_delegate.qml</file>
+        <file>delegate/Menu_delegate.qml</file>
+        <file>component/TopBar_component.qml</file>
+        <file>component/BottomLeftButtons_component.qml</file>
+        <file>component/BottomRightInfo_component.qml</file>
+        <file>base/View_Item_base.qml</file>
+        <file>base/Rectangled_Image_base.qml</file>
+        <file>image/cat320.png</file>
+        <file>base/Rectangle_base.qml</file>
+        <file>SampleMain.qml</file>
+        <file>image/btn_home_100.png</file>
+        <file>base/Rectangled_Text_base.qml</file>
+        <file>base/Rectangled_ScrollListView_base.qml</file>
+        <file>component/_blank_.qml</file>
+        <file>component/Item1Page_component.qml</file>
+        <file>component/Item2Page_component.qml</file>
+        <file>image/sunny.png</file>
+        <file>enum/EnumListElementType.qml</file>
+    </qresource>
+</RCC>

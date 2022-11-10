@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Calculator.qml</file>
     </qresource>
 </RCC>
