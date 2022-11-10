@@ -119,7 +119,6 @@ Base.View_Item_base {
 
         Loader {
             id: itemMenuPageAreaLoader
-
             anchors.fill: parent
         }
     }

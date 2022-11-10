@@ -21,6 +21,7 @@ Base.Rectangle_base {
         anchors.verticalCenter:  parent.verticalCenter
 
         font.pixelSize: 32
+
     }
 
     Base.Rectangled_Text_base {
@@ -36,10 +37,10 @@ Base.Rectangle_base {
         font.pixelSize: 28
     }
 
+
     Timer {
         interval: 500; running: true; repeat: true
         onTriggered: {
-
             iRightTime.text = new Date().toLocaleTimeString(Qt.locale())
         }
     }

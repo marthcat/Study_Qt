@@ -21,7 +21,7 @@ Item {
 
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.margins: 10
+//        anchors.margins: 10
 
         Switch {
             id: contentSwitch
@@ -130,7 +130,7 @@ Item {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.margins: 10
+//            anchors.margins: 10
 
             flat: true
 
@@ -139,6 +139,12 @@ Item {
             font.pixelSize: 26
 
             onClicked : root.buttonClicked(index, key)
+
+            Rectangle {
+                anchors.fill: parent
+//                border.color: "red"
+                color:"#80ff0000"
+            }
         }
 
     }
@@ -152,6 +158,7 @@ Item {
 
         color: "darkgray"
     }
+
 
     Component.onCompleted: {
 
